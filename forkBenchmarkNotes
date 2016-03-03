@@ -1,0 +1,65 @@
+set vm.nr_hugepages=2 in /etc/sysctl.conf to enable 2 explicitly mmap'd hugepages
+grep Huge /proc/meminfo to see current state of hugepages
+
+mmap a huge page, then fork, and spin in both processes:
+If child does not write to hugepage, only 1 is used
+Once child writes, 2 are used, so child has copied the entire hugepage
+If only 1 hugepage is available for use, it is used by the parent so the child must copy to regular pages
+
+
+all following stats collected with 100 separate perf call iterations each
+writes are 1 write per 1k bytes across the whole region
+
+mmap 2mb hugepage, write to all parts of it, fork, and write in child:
+                       average         min         max
+dTLB-stores-misses      162.25       136.0       199.0
+            faults       77.12        76.0        80.0
+      milliseconds  1.16663054    0.975634    1.292161
+                cs        3.01         3.0         4.0
+
+no write after fork:
+                       average         min         max
+dTLB-stores-misses      153.59       129.0       189.0
+            faults       76.04        74.0        79.0
+      milliseconds  0.83563049    0.677824    1.024661
+                cs        3.01         3.0         4.0
+      
+
+no write before or after fork:
+                       average         min         max
+dTLB-stores-misses       151.9       127.0       186.0
+            faults       74.97        73.0        77.0
+      milliseconds   0.6762857    0.563909    0.754789
+                cs         3.0         3.0         3.0
+
+mmap 2mb of regular pages, write in parent and child
+                       average         min         max
+dTLB-stores-misses     4359.05      4068.0      4564.0
+            faults     1099.09      1097.0      1102.0
+      milliseconds  2.11394823    1.769951    2.624404
+                cs         3.0         3.0         3.0
+
+map 2mb of regular pages, no write in child
+                       average         min         max
+dTLB-stores-misses     2675.31       144.0      3012.0
+            faults      576.92        74.0       590.0
+      milliseconds  1.34720372    0.848587    1.527666
+                cs        3.01         3.0         4.0
+                
+** The outlier min is caused by the transparent hugepages daemon combining the pages into a hugepage. This only happens when the daemon happens to run at just the right time, on the order of 1 in 1000 iterations of this program.
+
+
+regular pages, write to only first page in both processes
+                       average         min         max
+dTLB-stores-misses      156.68       125.0       190.0
+            faults       77.09        75.0        80.0
+      milliseconds  0.65783034    0.549522    1.129284
+                cs        3.01         3.0         4.0
+
+huge page, write to only first page in both processes
+                       average         min         max
+dTLB-stores-misses      164.55       138.0       185.0
+            faults       77.03        75.0        79.0
+      milliseconds  1.10872125    0.876105    1.300119
+                cs         3.0         3.0         3.0
+
