@@ -1,0 +1,40 @@
+
+ABOUT THE TOOL
+--------------
+This patch helps in adding BadgerTrap on top of Linux Kernel. This program
+helps in instrumenting the kernel to intercept TLB misses for programs on 
+the fly in order to infer behaviour of TLB misses.
+
+COPYRIGHT
+---------
+The copyright for this software is held by Mark D. Hill, Michael M. Swift and David A. Wood
+from University of Wisconsin - Madison.
+
+AUTHORS AND CONTACT
+-------------------
+The authors of this tool are Jayneel Gandhi and Arkaprava Basu. You can contact them at
+<jayneel@cs.wisc.edu> and <basu@cs.wisc.edu> repectively. But we would like you to use 
+the google group created to discuss questions, issues and bugs in the tool.
+Link to google group: https://groups.google.com/forum/#!forum/badgertrap
+
+INSTALL
+-------
+Check webpage <http://research.cs.wisc.edu/multifacet/badger-trap/>
+
+
+CITATION
+--------
+A citation particularly for this tool would soon appear. We will change the citation
+here and on its webpage. Until that time, if you are using this tool for your research 
+or for any other reason, you can cite
+
+Arkaprava Basu, Jayneel Gandhi, Jichuan Chang, Mark D. Hill, and Michael M. Swift. 2013. 
+Efficient virtual memory for big memory servers. In Proceedings of the 40th Annual 
+International Symposium on Computer Architecture (ISCA '13). ACM, New York, NY, USA, 237-248. 
+DOI=10.1145/2485922.2485943 http://doi.acm.org/10.1145/2485922.2485943
+
+This paper somewhat describes the working of the tool. See Box-1 in the paper.
+
+LICENSE
+-------
+See LICENSE file for information on the GNU GPL v2 license used for this software.

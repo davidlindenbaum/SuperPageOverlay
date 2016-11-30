@@ -1,0 +1,34 @@
+posix_memalign to get a transparent hugepage
+write once per 4k in the page
+fork
+write several times to the first 4k in the child
+read once per 4k in the parent
+
+tlb 3 set bits, 16 per set, no overlays
+memprotect before fork to force split
+566 4k, 1 huge
+
+tlb 3 set bits, 16 per set, with overlays
+memprotect before fork to force split
+52 4k, 3 huge
+
+tlb 3 set bits, 16 per set, no overlays
+no split
+45 4k, 2 huge
+
+tlb 3 set bits, 16 per set, with overlays
+no split
+45 4k, 2 huge
+
+no overlays
+no split
+write 2 pages
+
+with overlays, split, write half of the pages in child
+314 4k, 3 2m
+
+no overlays, split, write all in child
+1080 4k, 1 huge
+
+with overlays, split, write all in child
+898 4k, 3 huge
