@@ -1,0 +1,29 @@
+qemu-system-x86_64 -kernel code/linux/arch/x86_64/boot/bzImage -initrd obj/initramfs-busybox-x86.cpio.gz -nographic -append "console=ttyS0" -enable-kvm
+
+grep -e AnonHugePages /proc/*/smaps | awk '{ if($2>4) print $0} ' | awk -F "/" '{print $0; system("ps -fp " $3)} '
+
+egrep 'trans|thp' /proc/vmstat
+
+qemu-system-x86_64 -hda ubuntu2.qcow -m 4096 -enable-kvm&
+
+disk usage: df -h
+
+kill docker images
+#!/bin/bash
+# Delete all containers
+docker rm $(docker ps -a -q)
+# Delete all images
+docker rmi $(docker images -q)
+
+watch dmesg:
+dmesg -wH
+
+run_dataanalytcs.sh
+docker rm -f $(docker ps -a -q)
+docker run -d --net hadoop-net --name master --hostname master cloudsuite/data-analytics master
+docker run -d --net hadoop-net --name slave01 --hostname slave01 cloudsuite/hadoop slave
+docker exec master benchmark
+
+qemu with custom kernel bzImage compiled as in
+http://mgalgs.github.io/2015/05/16/how-to-build-a-custom-linux-kernel-for-qemu-2015-edition.html
+qemu-system-x86_64 -m 8192 -enable-kvm -kernel ~/code/obj/linux-x86-basic/arch/x86_64/boot/bzImage -hda ~/ubuntu2.qcow -append "noinitrd root=/dev/sda1 rw"&
