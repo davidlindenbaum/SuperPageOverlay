@@ -1,3 +1,4 @@
+% !TEX root = ../Thesis.tex
 \chapter{Testing with Trap-Driven Simulation}
 
 Because superpage overlays require hardware changes, they can only be tested in a simulated system. To allow us to simulate superpage overlays in real time on real workloads, we use a system called trap-driven simulation \cite{Talluri}. This involves modifying the Linux kernel to keep track of a simulated TLB while running, and forcing a page fault to occur on every memory access that would be a miss in the simulated TLB. Thus, the simulation can be updated accurately.

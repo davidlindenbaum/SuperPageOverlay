@@ -1,3 +1,4 @@
+% !TEX root = ../Thesis.tex
 \chapter{Superpage Overlay Design}
 
 To identify which parts of a superpage are mapped to an overlay, the OBitVector is appended to the TLB entries for superpages. On a TLB hit for a 2MB superpage, the lower-order bits of the address are used to check the corresponding index in the OBitVector. If it is 0, the translation is returned as normal. If it is 1, the 4KB TLB is checked instead. On TLB miss is this situation, the memory controller can either walk the page tables as normal or proceed directly to the Overlay Mapping Table (OMT), since there is guaranteed to be an overlay for this address.
