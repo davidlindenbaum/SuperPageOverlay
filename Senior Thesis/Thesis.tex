@@ -60,6 +60,18 @@ Our system alleviates the downsides of superpages. Overlays can track small chan
 %% ----------------------------------------------------------------
 
 \setstretch{1.3}  % Reset the line-spacing to 1.3 for body text (if it has changed)
+
+% The Acknowledgements page, for thanking everyone
+\acknowledgements{
+\addtocontents{toc}{\vspace{1em}}  % Add a gap in the Contents, for aesthetics
+
+Thanks to my research advisor Todd Mowry for getting me started with this project and helping with every step of the way.
+
+Thanks to Vivek Seshadri and Mike Kozuch for meeting with me every week and offering their insight on the project.
+
+}
+\clearpage  % End of the Acknowledgements
+
 \pagestyle{fancy}  %The page style headers have been "empty" all this time, now use the "fancy" headers as defined before to bring them back
 
 
@@ -87,6 +99,8 @@ Our system alleviates the downsides of superpages. Overlays can track small chan
 \input{Chapters/Introduction} % Introduction
 
 \input{Chapters/Design}
+
+\input{Chapters/Trap-Driven}
 
 \input{Chapters/Evaluation}
 
