@@ -52,7 +52,7 @@ Superpages are a contiguous set of virtual pages mapped to a contiguous set of p
 
 Our work examines changes to the TLB that make it possible to gain the advantages of superpages without losing the flexibility of standard pages. In particular, we propose a system called ``superpage overlays'' which allows the system to track modifications to superpages at a page granularity. It does this by appending a bit vector to each page table and TLB entry, indicating which segments of the superpage are mapped to an ``overlay'' instead and are translated via a secondary page table hierarchy.
 
-Our system alleviates the downsides of superpages. Overlays can track small changes in superpages to avoid copying the full superpage or breaking it down into standard pages. Rather than doing a copy-on-write, we can create an overlay on write and only copy one page while preserving the original superpage. To test the proposal we use a trap-driven simulation framework that simulates the behavior of the TLB in situ while benchmarks are running.
+Our system alleviates the downsides of superpages. Overlays can track small changes in superpages to avoid copying the full superpage or breaking it down into standard pages. Rather than doing a copy-on-write, we can create an overlay on write and only copy one page while preserving the original superpage. To evaluate the proposal we use a trap-driven simulation framework that simulates the behavior of the TLB in situ while benchmarks are running.
 
 }
 
@@ -88,7 +88,7 @@ Our system alleviates the downsides of superpages. Overlays can track small chan
 
 \input{Chapters/Design}
 
-\input{Chapters/Testing}
+\input{Chapters/Evaluation}
 
 %\input{Chapters/Chapter4}
 
