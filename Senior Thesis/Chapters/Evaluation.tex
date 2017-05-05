@@ -13,7 +13,7 @@ For a simple motivational study, the fork-write benchmark is analyzed without si
 
 \section{Using Trap-Driven Simulation}
 
-Simulating superpage overlays in the trap-driven framework is fairly simple. We define a \verb|superpage_info| struct that tracks simulation data for every superpage. It includes the virtual and physical address, a flag that is set when the page is marked COW, and the OBitVector. The COW flag is used to identify when the overlay bit should be set for any write to the superpage. When a TLB miss causes a page fault, we can use the information from the page fault and these structs to determine wheter to send the address to the simulated 4KB or 2MB TLB for updating. There are 4 possibilities depending on whether the address is a small page or superpage in the real system and whether there is a \verb|superpage_info| struct.
+Simulating superpage overlays in the trap-driven framework is fairly simple. We define a \verb|superpage_info| struct that tracks simulation data for every superpage. It includes the virtual and physical address, a flag that is set when the page is marked COW, and the OBitVector. The COW flag is used to identify when the overlay bit should be set for any write to the superpage. When a TLB miss causes a page fault, we can use the information from the page fault and these structs to determine whether to send the address to the simulated 4KB or 2MB TLB for updating. There are 4 possibilities depending on whether the address is a small page or superpage in the real system and whether there is a \verb|superpage_info| struct.
 
 \begin{enumerate}
 \item small page fault, no \verb|superpage_info|:
@@ -51,7 +51,7 @@ There is also a second simulated TLB that simply models the behavior of a normal
 
 In the Design chapter two forms of memory checkpointing were discussed. Both can be simulated in the same way, since we need not worry about what actually happens to the checkpointed data for the purposes of evaluating superpage overlays. The only difference is that the first type incrementally marks pages writable again as the checkpoint is written out, while the second marks everything writable at once when a commit occurs. We use the first type for this evaluation, though the results would be essentially the same.
 
-The simulation does everything that a real memory checkpointing framework would do, except that the memory snapshots are not actually saved anywhere or used in any way. All writable pages in the address space are marked read-only, and a kernel thread iterates through and waits a small amount of time per page to simulate writing it to nonvolatile memory before clearing the read-only flag and continuing. This checkpoint operationg runs once per second.
+The simulation does everything that a real memory checkpointing framework would do, except that the memory snapshots are not actually saved anywhere or used in any way. All writable pages in the address space are marked read-only, and a kernel thread iterates through and waits a small amount of time per page to simulate writing it to nonvolatile memory before clearing the read-only flag and continuing. This checkpoint operation runs once per second.
 
 While the checkpoint is in progress, writes to the pages that are still read-only will be detected and a simulation of COW will occur. If the page is a superpage, there are three different types of COW operation that are compared in this evaluation:
 
