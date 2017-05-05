@@ -1,6 +1,8 @@
 % !TEX root = ../Thesis.tex
 \chapter{Conclusion}
 
+Superpages are a useful tool for increasing the reach of the TLB. Every time a memory address is accessed, it must be translated to a physical address. If that translation is not cached in the TLB, a time-consuming page table walk occur. By managing memory in 2MB superpages instead of 4KB small pages, each TLB entry can represent a larger region of memory and thus TLB misses can be reduced. However, using superpages means that memory properties can only be managed in 2MB blocks, so applications such as copy-on-write suffer from the lack of fine-grained memory management.
+
 This work presents a system called superpage overlays that allows fine-grained management of memory within superpages. Superpage overlays involve both hardware and software changes in the form of bit vectors appended to TLB entries, a special-purpose register for a new page table hierarchy, and updated kernel memory management code that creates and maintains overlays. We have shown that superpage overlays can grant most of the TLB benefits of superpages while still allowing copy-on-write operations to minimize memory duplication.
 
 Additionally, we have developed a trap-driven simulation framework. This system has several benefits over more typical trace-driven simulation in the form of less overhead and real-time access to the system. The framework could be used to simulate nearly any TLB modification, as long as TLB misses and kernel-maintained data structures provide enough information to update the simulation.
