@@ -43,7 +43,7 @@ Simulating superpage overlays in the trap-driven framework is fairly simple. We 
 \end{itemize}
 \end{enumerate}
 
-The 4KB and 2MB TLBs being queried are both regular caches with 128 entries and 8-way associativity by default, and the NRU eviction policy discussed in the Trap-Driven Simulation chapter. Every page that is evicted is cleared from the real TLB so that the next access that would miss in the simulated TLB will cause another page fault.
+The 4KB and 2MB TLBs being queried are both regular caches with 128 entries and 4-way associativity by default, and the NRU eviction policy discussed in the Trap-Driven Simulation chapter. Every page that is evicted is cleared from the real TLB so that the next access that would miss in the simulated TLB will cause another page fault.
 
 There is also a second simulated TLB that simply models the behavior of a normal system without superpage overlays. It is set up the exact same way, but none of the tests involving \verb|superpage_info| are done. Thus, the superpage overlay system can be compared to a system without overlays with a single benchmark run.
 
