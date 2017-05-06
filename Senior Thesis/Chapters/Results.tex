@@ -15,7 +15,7 @@ If the superpage were not split for COW, there would be only two 2MB TLB misses 
 
 \section{Memory Checkpointing Benchmark}
 
-This is the more interesting application to analyze. The default TLB parameters (4 way associative with 128 entries) are used, and checkpoints are taken every 1 second for 10 seconds. A fixed 10 million read/write iterations are carried out. First, the write probability is varied while keeping the default locality factor of $0.6$. TLB misses (Figure \ref{fig:write_prob_misses}) and the number of pages copied-on-write during the checkpoints (Figure \ref{fig:write_prob_copied}) are measured for the three types of COW: splitting superpages, retaining superpages, an overlay-on-write. Note that overlay-on-write copies the exact same number of pages as COW with splitting, since both simply copy each small page that is written to.
+This is the more interesting application to analyze. The default TLB parameters (4 way associative with 128 entries) are used, and checkpoints are taken every 1 second for 10 seconds. A fixed 10 million read/write iterations are carried out. First, the write probability is varied while keeping the default locality factor of $0.6$. TLB misses (Figure \ref{fig:write_prob_misses}) and the number of pages copied-on-write during the checkpoints (Figure \ref{fig:write_prob_copied}) are measured for the three types of COW: splitting superpages, retaining superpages, and overlay-on-write. Note that overlay-on-write copies the exact same number of pages as COW with splitting, since both simply copy each small page that is written to.
 \begin{figure}
     \centering
     \includegraphics[width=6in]{Figures/write_prob_tlb}
